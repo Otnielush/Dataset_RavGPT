@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import os
+from tqdm import tqdm
 
 def extract_question_data(url):
     response = requests.get(url)
@@ -32,18 +33,21 @@ def extract_question_data(url):
     return data
 
 results = []
-LAST_PAGE=139500
+LAST_PAGE = 139500
 PAGES_PER_FILE = 1500
 
-for page_num in range(1, LAST_PAGE):  
-    url = f'https://www.yeshiva.org.il/ask/{page_num}'
-    results.append(extract_question_data(url))
-    if page_num % PAGES_PER_FILE == 0 or page_num == LAST_PAGE:
+if __name__ == "__main__":
+    for page_num in tqdm(range(1, LAST_PAGE)):
+        url = f'https://www.yeshiva.org.il/ask/{page_num}'
+        data = extract_question_data(url)
+        if len(data['answer']) != 0:
+            results.append(data)
+        if page_num % PAGES_PER_FILE == 0 or page_num == LAST_PAGE - 1:
 
-        start_page = page_num - PAGES_PER_FILE + 1 if page_num != LAST_PAGE else page_num - (page_num % PAGES_PER_FILE) + 1
+            start_page = max(0, page_num - PAGES_PER_FILE + 1) if page_num != LAST_PAGE else page_num - (page_num % PAGES_PER_FILE) + 1
 
-        filename = f'results_{start_page}_{page_num}.json'
-        print(filename)
-        with open(filename, 'w', encoding='utf-8') as f:
-            json.dump(results, f, ensure_ascii=False, indent=4)
-        results = []  # Clear results for the next batch
+            filename = f'results_{start_page}_{page_num}.json'
+            print(filename)
+            with open(filename, 'w', encoding='utf-8') as f:
+                json.dump(results, f, ensure_ascii=False, indent=4)
+            results = []  # Clear results for the next batch
