@@ -6,6 +6,8 @@ Open source repo for parse and preparation scripts for RavGPT.ai project
 * All changes are thought branches and Pull requests 
 * If you taking source to parse:
   * Look in to [sources_to_parse](sources_to_parse.csv) for non done sources all add new if you think it`s important
+  * Go to Issue "Adding parsing scripts"
+  * In right side in section "Development" you can create new branch to make changes
   * Change status for source in [sources_to_parse](sources_to_parse.csv) to **'in_work'**
   * Prepare scripts to parse scripts so we can run it on instance and download source into our storage
   * Add your scripts to **Parsing_scripts** and **Formating_scripts** folders
