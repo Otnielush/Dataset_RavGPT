@@ -46,4 +46,6 @@ for page_num in range(1, LAST_PAGE):
         print(filename)
         with open(filename, 'w', encoding='utf-8') as f:
             json.dump(results, f, ensure_ascii=False, indent=4)
+
         results = []  # Clear results for the next batch
+
