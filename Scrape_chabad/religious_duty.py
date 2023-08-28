@@ -10,7 +10,7 @@ base_url = 'https://www.chabad.org/library/article_cdo/aid/115020/jewish/The-Dil
 
 # Variables for the general details
 author = "Jacob Immanuel Schochet"
-name = "Lamplighters: The Philosophy of Lubavitch Activism"
+name = "Religious Duty and Religious Experience in Chassidism"
 results = []
 
 while base_url:  # While there's a URL to process
